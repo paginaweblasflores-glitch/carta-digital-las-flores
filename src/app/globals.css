@@ -119,6 +119,12 @@ html {
   scrollbar-width: thin;
 }
 
+/* Nada (ramos bordados que sangran por el borde) puede ensanchar la página:
+   en el teléfono eso descentra el visor y deja un scroll lateral. */
+.carta {
+  overflow-x: clip;
+}
+
 .precio {
   font-family: var(--display);
   font-variant-numeric: lining-nums tabular-nums;
@@ -958,8 +964,12 @@ dialog[open]::backdrop {
 
 /* Visor de foto */
 .visor {
+  position: fixed;
+  inset: 0;
   margin: auto;
-  width: min(92vw, 34rem);
+  width: min(calc(100vw - 2rem), 34rem);
+  height: fit-content;
+  max-height: calc(100svh - 2rem);
 }
 
 .visor__panel {
@@ -972,10 +982,12 @@ dialog[open]::backdrop {
 }
 
 .visor__img {
+  display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 1;
   object-fit: cover;
-  max-height: 70svh;
+  max-height: calc(100svh - 10rem);
 }
 
 .visor__cerrar {
